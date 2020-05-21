@@ -1,0 +1,23 @@
+<table class="table">
+		<td><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></td>
+
+		<tr>
+			<th>name</th>
+			<th><%= user.name %></th>
+		</tr>
+
+		<tr>
+			<th>introduction</th>
+			<th><%= user.introduction %></th>
+		</tr>
+		<tr>
+      <th><%= current_user.favorites.count %>いいね</th>
+      <th>コメント数: <%= current_user.book_comments.count %></th>
+    </tr>
+		<tr>
+			<div class="stats"><%= render 'shared/stats', user:user %></div>
+		</tr>
+</table>
+<div class="row">
+	<%= link_to '',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+</div>

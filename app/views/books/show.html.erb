@@ -1,0 +1,60 @@
+<div class="container">
+<div class="row">
+	<div class="col-xs-3">
+
+		<h2>User info</h2>
+	<table class="table">
+		<tr><%= attachment_image_tag(@user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
+
+		<tr>
+			<th>name</th>
+			<th><%= @user.name %></th>
+		</tr>
+
+		<tr>
+			<th>introduction</th>
+			<th><%= @user.introduction %></th>
+		</tr>
+</table>
+<% if current_user.id == @book.user_id %>
+<div class="row">
+	<%= link_to '',edit_user_path(@user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{@user.id}" %>
+</div>
+<% end %>
+
+		<h2>New book</h2>
+		<%= render 'books/newform' ,book:@booknew %>
+
+	</div>
+
+	<div class="col-xs-9">
+		<h2>Book detail</h2>
+
+		<table class="table">
+				<tr>
+					<td>
+						<%= link_to @book.user   do%>
+						<%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+						<%= @book.user.name %>
+						<% end %>
+					</td>
+					<td><%= link_to @book.title, @book %></td>
+					<td><%= @book.body %></td>
+					<div id="favorite_btn">
+				 <%= render 'favorite', book: @book%>
+				 </div>
+					<td><p class="comment-count">コメント数: <%= @book.book_comments.count %></p></td>
+					<% if @book.user_id == current_user.id%>
+          <!--詳細ページのユーザーのidとログインしているユーザーのidが等しい場合---->
+					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
+					<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
+			<% end %>
+				</tr>
+			</table>
+			
+			<h3>Comment</h3>
+			<%= render 'comments' , book:@book %>
+			<%= render 'book_comments/comment',book:@book,book_comment:@book_comment %>
+	</div>
+</div>
+</div>

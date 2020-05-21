@@ -1,0 +1,5 @@
+<table id="js-table-comment" class="table">
+<% book.book_comments.each do |book_comment| %>
+<%= render 'comment_show', book_comment:book_comment,book:book %>
+<% end %>
+</table>

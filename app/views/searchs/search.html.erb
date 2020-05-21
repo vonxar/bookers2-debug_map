@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-10 offset-xs-2">
+<% if @user_or_book =="1" %>
+<h1>User search</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Name</th>
+      <% if  params[:search] == ""%>
+      <h3 class="text-danger">見つかりません</h3>
+      <% end %>
+    </tr>
+  </thead>
+  <% unless params[:search] == "" %>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+			  <td><%= user.name%></td>
+		  	<div class="stats"><%= render 'shared/stats', user:user %></div>
+			  	<td><%= render 'users/follow_form',user:user %></td>
+			  <td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+<% else @user_or_book =="2" %>
+<h1>Book search</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Book</th>
+      <th>Title</th>
+      <th>Opinion</th>
+      <th>Name</th>
+        <% if  params[:search] == ""%>
+       <h3 class="text-danger">見つかりません</h3>
+      <% end %>
+    </tr>
+  </thead>
+ <% unless params[:search] == "" %>
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= attachment_image_tag(book.user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
+			  <td><%= link_to book.title ,book%></td>
+			  <td><%= book.body %></td>
+			  <td><%= link_to book.user.name ,book%></td>
+		  	<div class="stats"><%= render 'shared/stats', user:book.user %></div>
+			  	<td><%= render 'users/follow_form',user:book.user %></td>
+			  <td><%= link_to "Show", book, class: "book_#{book.id}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+</div>
+</div>
+</div>
+<% end %>

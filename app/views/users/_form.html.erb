@@ -1,0 +1,19 @@
+
+
+<h2>Your address</h2>
+<div class="field">
+  <%= f.label :postcode %> <br>
+  <%= f.text_field :postcode ,autofocus: true, placeholder: 'postcode', class: "postcode" %>
+  </div>
+  <div class="field">
+  <p>prefecture</p>
+  <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, class: "都道府県" %>
+  </div>
+  <div class="field">
+  <p>city</p>
+  <%= f.text_field :address_city %>
+  </div>
+  <div class="field">
+  <p>street</p>
+  <%= f.text_field :address_street %>
+</div>
